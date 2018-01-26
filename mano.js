@@ -1,8 +1,5 @@
 
-
 $(document).ready(function(){
-
-
 
   $("#listbtn").click(function(){
       $.ajax ({
@@ -42,25 +39,29 @@ $(document).ready(function(){
   $("#newbtn").click(function(){
     $("#newbtn").hide();
     $("#listbtn").hide();
-    $(".list").append("<form>");
+    $(".list").append("<form id=" + "f" + ">");
     $(".tform").hide();
     $("form").append("Username" + "</br>" + "<input type =" + "text"  + "name =" + "userName" + "id="+ "name"+ ">" + "</br>");
     $("form").append("Email" + "</br>" + "<input type =" + "text"  + "name =" + "eMail" + "id="+ "eMail"+ ">" + "</br>");
     $("form").append("Age" + "</br>" + "<input type =" + "text"  + "name =" + "age" + "id="+ "age"+ ">" + "</br>");
     $(".list").append("</form>");
-    $(".list").append("<button type = "+ "button" + "name = " + "submit" + "id = " + "submit" + ">"+ "Submit" + "</button>" );
-
-    // $("#submit").click(function(){
-    //   console.log("a");
-    //   }); ----------------------------------Nemato sito
+    $(".list").append("<input type = "+ "button" + " name = " + "submit" + " id = " + "submit" + ">"+ "Submit" + "</button>" );
 
 
 
 
-    console.log("aa");
+
+    console.log("#submit");
     return;
 
   })
+
+  $(document).on("click", "#submit", function(){
+    console.log($("#f"));
+    console.log( $("#f.elements[0].value"));
+
+  
+    });
 
 
 
