@@ -33,6 +33,9 @@ $(document).ready(function(){
 
           }
         });
+
+
+
       });
 
 
@@ -41,26 +44,73 @@ $(document).ready(function(){
     $("#listbtn").hide();
     $(".list").append("<form id=" + "f" + ">");
     $(".tform").hide();
-    $("form").append("Username" + "</br>" + "<input type =" + "text"  + "name =" + "userName" + "id="+ "name"+ ">" + "</br>");
-    $("form").append("Email" + "</br>" + "<input type =" + "text"  + "name =" + "eMail" + "id="+ "eMail"+ ">" + "</br>");
-    $("form").append("Age" + "</br>" + "<input type =" + "text"  + "name =" + "age" + "id="+ "age"+ ">" + "</br>");
+    $("form").append("Username" + "</br>" + "<input type = " + " text "  + "name = " + " userName " + "id= "+ " vardas "+ ">" + "</br>");
+    $("form").append("Email" + "</br>" + "<input type = " + " text "  + " name =" + " eMail " + " id = "+ " eMail "+ ">" + "</br>");
+    $("form").append("Age" + "</br>" + "<input type = " + " text "  + " name = " + " age " + "id = "+ " age "+ ">" + "</br>");
     $(".list").append("</form>");
-    $(".list").append("<input type = "+ "button" + " name = " + "submit" + " id = " + "submit" + ">"+ "Submit" + "</button>" );
+    $(".list").append("<button type = "+ "button" + " name = " + "submit" + " id = " + "submit" + ">"+ "Submit" + "</button>" );
 
 
-
-
-
-    console.log("#submit");
-    return;
-
-  })
 
   $(document).on("click", "#submit", function(){
-    console.log($("#f"));
-    console.log( $("#f.elements[0].value"));
+    // var str = {
+    //   id = 1,
+    //   userName = "a",
+    //   eMail = "aa",
+    //    age = 25
+    // };
+    //
+    let temp = $("input#age").val();
+    ol = parseInt(temp);
+     let str =  {userName: $("input#vardas").val(), eMail:$("input#eMail").val(), age: ol };
+    //
+    console.log(str);
+    //
 
-  
+     let b = JSON.stringify(str);
+     console.log(str);
+     console.log(b);
+
+    $.ajax ({
+      url:  "http://192.168.1.81:8080/add",
+      data: b,
+      contentType: "application/json",
+      type: "POST",
+      dataType:"json",
+      success: function (data) {
+        console.log(data);
+      }
+      })
+
+      $(".list").hide();
+      $("#newbtn").show();
+      $("#listbtn").show();
+      return;
+
+
+    })
+
+
+
+
+
+
+
+    // var data = JSON.stringify(str);
+    // console.log(data);
+    // //
+    // $.ajax ({
+    //   url:  "http://192.168.1.81:8080/add",
+    //   data: a,
+    //   contentType: "application/json",
+    //   type: "POST",
+    //   dataType:"json",
+    //   success: function (data) {
+    //     console.log(data);
+    //   }
+    // })
+    //console.log( $("#f"));
+    //console.log( $("#f.elements[0].value"));
     });
 
 
@@ -76,18 +126,7 @@ $(document).ready(function(){
     //    age: 25
     //  }
     //
-    // let a = JSON.stringify(o);
-    //
-    // $.ajax ({
-    //   url:  "http://192.168.1.81:8080/add",
-    //   data: a,
-    //   contentType: "application/json",
-    //   type: "POST",
-    //   dataType:"json",
-    //   success: function (data) {
-    //     console.log(data);
-    //   }
-    // })
+
 
 
 
