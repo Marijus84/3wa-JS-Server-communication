@@ -1,45 +1,55 @@
-
 $(document).ready(function(){
+var data;
+  $(document).on("click", "#listbtn",  function(){
 
-  $("#listbtn").click(function(){
-      $.ajax ({
-          url:  "http://192.168.1.81:8080/list",
-          type: "GET",
-          success: function (data) {
-            console.log(data);
-
-          //  var info = JSON.parse(data);
-            //console.log(info);
-            $(".list").append("<table class ='tform'></table>");
-            $("table").append("<tr>");
-            $("tr").append("<th>id</th>");
-            $("tr").append("<th>userName</th>");
-            $("tr").append("<th>eMail</th>");
-            $("tr").append("<th>age</th>");
-
-            for (let i = 0; i < data.length; i++) {
-              console.log(data.length);
+    $.ajax ({
+      url:  "http://192.168.1.81:8080/list",
+      type: "GET",
+      success: function (data) {
+        $(".list").show();
+        $("form").hide();
+        $("#submit").hide();
+        $(".list").append("<table class ='tform'></table>");
+        $("table").append("<tr>");
+        $("tr").append("<th>id</th>");
+        $("tr").append("<th>userName</th>");
+        $("tr").append("<th>eMail</th>");
+        $("tr").append("<th>age</th>");
+            for (i = 0; i < data.length; i++) {
               tid = data[i].id;
-              console.log(tid);
               tuser = data[i].userName;
-              console.log(tuser);
               tmail = data[i].eMail;
-              console.log(tmail);
               tage = data[i].age;
-              console.log(tage);
-
-              $(".tform").append("<tr id= " + i + " >" + "<td>" + tid + "</td>" + "<td>" + tuser + "</td>" + "<td>" + tmail + "</td>" + "<td>" + tage + "</td>"  + "</tr>");
+              $(".tform").append("<tr id= " + i + " >" + "<td>" + tid + "</td>" + "<td>" + tuser + "</td>" + "<td>" + tmail + "</td>" + "<td>" + tage + "</td>"  + "<td>"
+               +"<button type = "+ "button" + " name = " + "delete" + " class = " + "delete"  + " id = " + i + ">"+ "Delete" + "</button>"  + "</td>"+"</tr>");
             }
 
-          }
-        });
+            $(document).on("click", ".delete", function(){
+              console.log(this.id);
 
-
-
+              a = data[this.id];
+              console.log(a);
+              let b = JSON.stringify(a);
+              console.log(b);
+              $.ajax ({
+                url:  "http://192.168.1.81:8080/delete",
+                data: b,
+                contentType: "application/json",
+                type: "POST",
+                dataType:"json",
+                success: function (data) {
+                  console.log(data);
+                  }
+                })
+                
+                 return;
+              });
+            }
+          });
+          return;
       });
 
-
-  $("#newbtn").click(function(){
+    $("#newbtn").click(function(){
     $("#newbtn").hide();
     $("#listbtn").hide();
     $(".list").append("<form id=" + "f" + ">");
@@ -49,8 +59,7 @@ $(document).ready(function(){
     $("form").append("Age" + "</br>" + "<input type = " + " text "  + " name = " + " age " + "id = "+ " age "+ ">" + "</br>");
     $(".list").append("</form>");
     $(".list").append("<button type = "+ "button" + " name = " + "submit" + " id = " + "submit" + ">"+ "Submit" + "</button>" );
-
-
+  });
 
   $(document).on("click", "#submit", function(){
     // var str = {
@@ -85,7 +94,7 @@ $(document).ready(function(){
       $(".list").hide();
       $("#newbtn").show();
       $("#listbtn").show();
-      return;
+       return;
 
 
     })
@@ -126,9 +135,3 @@ $(document).ready(function(){
     //    age: 25
     //  }
     //
-
-
-
-
-
-});
